@@ -9,13 +9,13 @@ import java.io.File
 object CiteServices extends App {
 
   import com.twitter.io.{Reader, Buf}
-  val config = new java.io.File(".").getCanonicalPath
-  val ctsCatalog = new java.io.File(config,"catalog.txt")
+  val config = ScsConfig("src/main/resources/config.properties")
 
 
 
 
-  val msg = "CITE  services will live here, and use CTS cataloged in " + ctsCatalog.toString()
+
+  val msg = "CITE  services will live here, and local data sources configured for cts data from  " + config.configMap("textdata")
   val api: Endpoint[String] = get("scs") { Ok(msg) }
 
   Await.ready(Http.server.serve(":8080", api.toServiceAs[Text.Plain]))
