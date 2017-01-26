@@ -15,7 +15,12 @@ resolvers  :=  Seq(
 
 libraryDependencies := Seq(
   "com.github.finagle" %% "finch-core" % finchVersion,
-  "com.google.code.findbugs" % "jsr305" % "3.0.1"
+  "com.google.code.findbugs" % "jsr305" % "3.0.1",
+
+  "edu.holycross.shot" %% "cite" % "3.1.0",
+  "edu.holycross.shot" %% "ohco2" % "2.1.0"
+
+
 )
 
 
