@@ -22,17 +22,34 @@ object CiteServices extends App {
   val msg = "CITE  services will live here, and local data sources configured for cts data from  " + settings.configMap("textdata")
 
 
-  val txt: Endpoint[String] = get("texts" :: string ) { u: String => {
-    val urn = CtsUrn(u)
-    Ok(msg + " for urn " + u + " yields " + corpus.urnMatch(urn))
-  }}
-
-  val works: Endpoint[String] = get("texts" ) {
-    Ok(msg + " texts == " + corpus.citedWorks)
+  val text: Endpoint[String] = get("texts" :: string ) {
+    u: String => {
+      val urn = CtsUrn(u)
+      val urnList = corpus.urnMatch(urn).map(_.toString).mkString("\n")
+      Ok(urnList)
+    }
   }
 
+  val works: Endpoint[String] = get("texts" ) {
+    Ok(corpus.citedWorks.map(_.toString).mkString("\n"))
+  }
 
-  val svc : Service[Request, Response] = (txt :+: works).toServiceAs[Text.Plain]
+  val reff: Endpoint[String] = get("texts" :: "reff" :: string ) { u : String  => {
+      val urn = CtsUrn(u)
+      val urnList = corpus.getValidReff(urn).map(_.toString).mkString("\n")
+      Ok(urnList)
+    }
+  }
+
+  val firstNode: Endpoint[String] = get("texts" :: "first" :: string) {
+    u : String => {
+      val urn = CtsUrn(u)
+      val urnList = corpus.urnMatch(urn).map(_.toString)
+      Ok(urnList(0))
+    }
+  }
+
+  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff).toServiceAs[Text.Plain]
   Await.ready(Http.server.serve(":8080", svc))
 
 }

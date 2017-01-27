@@ -1,0 +1,15 @@
+# Cite Services configurations.
+# Values be either full paths or paths
+# relative to server root.
+#
+# Text services:
+textdata=src/test/resources/cts/texts.tsv
+textcatalog=src/test/resources/cts/catalog.txt
+# Collection services:
+collectiondata=src/test/resources/??
+collectioncatalog=src/test/resources/??
+# Image services:
+imagedata=src/test/resources/??
+imagecatalog=src/test/resources/??
+# ORCA services:
+orcadata=src/test/resources/??
