@@ -10,7 +10,8 @@ lazy val finchVersion = "0.12.0"
 
 
 resolvers  :=  Seq(
-  "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+  "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+  "uh-nexus" at "http://beta.hpcc.uh.edu/nexus/content/groups/public"
 )
 
 libraryDependencies := Seq(
