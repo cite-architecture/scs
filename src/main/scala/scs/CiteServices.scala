@@ -1,7 +1,8 @@
 package edu.holycross.shot.scs
 
 import io.finch._
-import com.twitter.finagle.Http
+import com.twitter.finagle.{Http, Service}
+import com.twitter.finagle.http.{Request, Response}
 import com.twitter.util.Await
 
 
@@ -21,11 +22,17 @@ object CiteServices extends App {
   val msg = "CITE  services will live here, and local data sources configured for cts data from  " + settings.configMap("textdata")
 
 
-  val api: Endpoint[String] = get("texts" :: string ) { u: String => {
+  val txt: Endpoint[String] = get("texts" :: string ) { u: String => {
     val urn = CtsUrn(u)
-    Ok(msg + " for urn " + u)
+    Ok(msg + " for urn " + u + " yields " + corpus.urnMatch(urn))
   }}
 
-  Await.ready(Http.server.serve(":8080", api.toServiceAs[Text.Plain]))
+  val works: Endpoint[String] = get("texts" ) {
+    Ok(msg + " texts == " + corpus.citedWorks)
+  }
+
+
+  val svc : Service[Request, Response] = (txt :+: works).toServiceAs[Text.Plain]
+  Await.ready(Http.server.serve(":8080", svc))
 
 }
