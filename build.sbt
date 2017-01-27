@@ -15,14 +15,20 @@ resolvers  :=  Seq(
 
 libraryDependencies := Seq(
   "com.github.finagle" %% "finch-core" % finchVersion,
+  "com.github.finagle" %% "finch-circe" % finchVersion,
   "com.google.code.findbugs" % "jsr305" % "3.0.1",
 
   "edu.holycross.shot" %% "cite" % "3.1.0",
   "edu.holycross.shot" %% "ohco2" % "2.1.0"
-
-
 )
 
+
+val circeVersion = "0.7.0"
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+).map(_ % circeVersion)
 
 lazy val runScs = taskKey[Unit]("Run Scala CITE Services in Finch")
 addCommandAlias("scs", "; runScs")

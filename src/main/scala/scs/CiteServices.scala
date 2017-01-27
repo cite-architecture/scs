@@ -1,6 +1,9 @@
 package edu.holycross.shot.scs
 
 import io.finch._
+import io.finch.circe._
+import io.circe.generic.auto._
+
 import com.twitter.finagle.{Http, Service}
 import com.twitter.finagle.http.{Request, Response}
 import com.twitter.util.Await
@@ -22,34 +25,34 @@ object CiteServices extends App {
   val msg = "CITE  services will live here, and local data sources configured for cts data from  " + settings.configMap("textdata")
 
 
-  val text: Endpoint[String] = get("texts" :: string ) {
+  val text: Endpoint[Vector[CitableNode]] = get("texts" :: string ) {
     u: String => {
       val urn = CtsUrn(u)
-      val urnList = corpus.urnMatch(urn).map(_.toString).mkString("\n")
+      val urnList = corpus.urnMatch(urn)
       Ok(urnList)
     }
   }
 
-  val works: Endpoint[String] = get("texts" ) {
-    Ok(corpus.citedWorks.map(_.toString).mkString("\n"))
+  val works: Endpoint[Vector[CtsUrn]] = get("texts" ) {
+    Ok(corpus.citedWorks)
   }
 
-  val reff: Endpoint[String] = get("texts" :: "reff" :: string ) { u : String  => {
+  val reff: Endpoint[Vector[CtsUrn]] = get("texts" :: "reff" :: string ) { u : String  => {
       val urn = CtsUrn(u)
-      val urnList = corpus.getValidReff(urn).map(_.toString).mkString("\n")
+      val urnList = corpus.getValidReff(urn)
       Ok(urnList)
     }
   }
 
-  val firstNode: Endpoint[String] = get("texts" :: "first" :: string) {
+  val firstNode: Endpoint[CitableNode] = get("texts" :: "first" :: string) {
     u : String => {
       val urn = CtsUrn(u)
-      val urnList = corpus.urnMatch(urn).map(_.toString)
+      val urnList = corpus.urnMatch(urn)
       Ok(urnList(0))
     }
   }
 
-  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff).toServiceAs[Text.Plain]
+  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff).toServiceAs[Application.Json]
   Await.ready(Http.server.serve(":8080", svc))
 
 }
