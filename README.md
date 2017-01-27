@@ -20,7 +20,7 @@ The following services are in an initial state of implementation with no testing
 ### Text Services
 
 
-- `scs/texts` => lists all distinct work-components appearing in cited text nodes
-- `scs/texts/`**CTS URN** => (possibly empty) list of citable nodes matching **CTS URN**
-- `scs/texts/first/`**CTS URN** => 0 or 1 citable node; if 1, the first node matching **CTS URN**
-- `scs/texts/reff/`**CTS URN** => (possibly empty) list of CTS URNs matching **CTS URN**
+- `/texts` => lists all distinct work-components appearing in cited text nodes
+- `/texts/`**CTS URN** => (possibly empty) list of citable nodes matching **CTS URN**
+- `/texts/first/`**CTS URN** => 0 or 1 citable node; if 1, the first node matching **CTS URN**
+- `/texts/reff/`**CTS URN** => (possibly empty) list of CTS URNs matching **CTS URN**
