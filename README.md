@@ -17,10 +17,16 @@ The `build.sbt` file includes a task alias so that `sbt scs` starts a service ru
 
 The following services are in an initial state of implementation with no testing or meaningfuly error handling.
 
-### Text Services
+### Text services
 
 
 - `/texts` => lists all distinct work-components appearing in cited text nodes
 - `/texts/`**CTS URN** => (possibly empty) list of citable nodes matching **CTS URN**
 - `/texts/first/`**CTS URN** => 0 or 1 citable node; if 1, the first node matching **CTS URN**
 - `/texts/reff/`**CTS URN** => (possibly empty) list of CTS URNs matching **CTS URN**
+
+
+### Text catalog services
+
+- `/textcatalog` => lists catalog entries for all cataloged texts
+- `/textcatalog`**CTS URN** =>  (possibly empty) list of catalog entries matching **CTS URN**
