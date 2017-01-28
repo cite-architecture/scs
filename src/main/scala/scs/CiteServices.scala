@@ -23,14 +23,30 @@ case class ScsException(s: String) extends Exception {
 
 object CiteServices extends App {
 
-  import com.twitter.io.{Reader, Buf}
+  // load an OHCO2 corpus:
   val settings = ScsConfig("src/main/resources/config.properties")
-
-
-
   val corpus = Corpus( settings.configMap("textdata"))
+  // load a catalog:
+  val textCatalog = edu.holycross.shot.ohco2.Catalog(settings.configMap("textcatalog"))
 
-  val msg = "CITE  services will live here, and local data sources configured for cts data from  " + settings.configMap("textdata")
+
+    // CatalogEntry's in text Catalog
+    val ohco2catalog: Endpoint[Vector[CatalogEntry]] = get("textcatalog") {
+      Ok(textCatalog.texts)
+    }
+
+    val ohco2work: Endpoint[Vector[CatalogEntry]] = get("textcatalog" :: string) {
+      u: String => {
+        val urn = CtsUrn(u)
+        Ok(textCatalog.entriesForUrn(urn))
+      }
+    }
+
+
+  // CitableNodes in corpus
+  val works: Endpoint[Vector[CtsUrn]] = get("texts" ) {
+    Ok(corpus.citedWorks)
+  }
 
 
   val text: Endpoint[Vector[CitableNode]] = get("texts" :: string ) {
@@ -41,19 +57,12 @@ object CiteServices extends App {
     }
   }
 
-  val works: Endpoint[Vector[CtsUrn]] = get("texts" ) {
-    Ok(corpus.citedWorks)
-  }
-
   val reff: Endpoint[Vector[CtsUrn]] = get("texts" :: "reff" :: string ) { u : String  => {
       val urn = CtsUrn(u)
       val urnList = corpus.getValidReff(urn)
       Ok(urnList)
     }
   }
-
-
-
 
   val firstNode: Endpoint[CitableNode] = get("texts" :: "first" :: string) {
     u : String => {
@@ -62,12 +71,13 @@ object CiteServices extends App {
       if (urnList.size > 0) {
         Ok(urnList(0))
       } else {
-        throw ScsException("No urn found matching " + u)
+        throw ScsException("No urns found matching " + u)
       }
     }
   }
 
-  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff).handle({
+
+  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff :+: ohco2catalog :+: ohco2work).handle({
       case se: ScsException => NotFound(se)
       case ce: CiteException => NotFound(ce)
 
