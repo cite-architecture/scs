@@ -59,13 +59,18 @@ object CiteServices extends App {
     u : String => {
       val urn = CtsUrn(u)
       val urnList = corpus.urnMatch(urn)
-      Ok(urnList(0))
+      if (urnList.size > 0) {
+        Ok(urnList(0))
+      } else {
+        throw ScsException("No urn found matching " + u)
+      }
     }
   }
 
   val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff).handle({
-      //case e: ScsException => NotFound(e)
-      case e: CiteException => NotFound(e)
+      case se: ScsException => NotFound(se)
+      case ce: CiteException => NotFound(ce)
+
     }).
     toServiceAs[Application.Json]
 
