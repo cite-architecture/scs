@@ -3,7 +3,9 @@ package edu.holycross.shot.scs
 import io.finch._
 import io.finch.circe._
 import io.circe.generic.auto._
-
+import io.circe.{Encoder, Json}
+//import io.finch.response.{ EncodeJsonResponse, EncodeResponse }
+import io.finch.Encode
 import com.twitter.finagle.{Http, Service}
 import com.twitter.finagle.http.{Request, Response}
 import com.twitter.util.Await
@@ -12,7 +14,13 @@ import com.twitter.util.Await
 import edu.holycross.shot.ohco2._
 import edu.holycross.shot.cite._
 
-// plain text reply to request on localhost:8080/scs
+
+/*
+case class ScsException(s: String) extends Exception {
+  override def getMessage: String = "Cite Service exception: problem with " + s
+}
+*/
+
 object CiteServices extends App {
 
   import com.twitter.io.{Reader, Buf}
@@ -44,6 +52,9 @@ object CiteServices extends App {
     }
   }
 
+
+
+
   val firstNode: Endpoint[CitableNode] = get("texts" :: "first" :: string) {
     u : String => {
       val urn = CtsUrn(u)
@@ -52,7 +63,12 @@ object CiteServices extends App {
     }
   }
 
-  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff).toServiceAs[Application.Json]
+  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff).handle({
+      //case e: ScsException => NotFound(e)
+      case e: CiteException => NotFound(e)
+    }).
+    toServiceAs[Application.Json]
+
   Await.ready(Http.server.serve(":8080", svc))
 
 }
