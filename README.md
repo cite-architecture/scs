@@ -2,6 +2,9 @@
 
 CITE service suite based on [finch](https://github.com/finagle/finch), loading data from files in the local file system.
 
+## Version: 0.1.0
+
+Status:  **experimental**.
 
 ## Configuration
 
