@@ -4,7 +4,7 @@ CITE service suite based on [finch](https://github.com/finagle/finch), loading d
 
 ## Version: 0.1.0
 
-Status:  **experimental**.
+Status:  **experimental**.  No binary releases yet.
 
 ## Configuration
 
