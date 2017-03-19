@@ -28,6 +28,10 @@ The following services are in an initial state of implementation with no testing
 - `/texts/first/`**CTS URN** => 0 or 1 citable node; if 1, the first node matching **CTS URN**
 - `/texts/reff/`**CTS URN** => (possibly empty) list of CTS URNs matching **CTS URN**
 
+To implement:
+
+- `/texts/next/`**CTS URN** => 0 or 1 citable node; if 1, the first node matching **CTS URN**
+- `/texts/prev/`**CTS URN** => 0 or 1 citable node; if 1, the first node matching **CTS URN**
 
 ### Text catalog services
 
