@@ -37,3 +37,22 @@ To implement:
 
 - `/textcatalog` => lists catalog entries for all cataloged texts
 - `/textcatalog`**CTS URN** =>  (possibly empty) list of catalog entries matching **CTS URN**
+
+
+### Test searching services
+
+- `/texts/find/**String**` => find all passages in repository with text content matching **String**
+- `/texts/find/**String**/**CTS URN**/`  => find all passages in **CTS URN** with text content matching **String**
+
+
+### Ngram manipulation
+
+- `/texts/ngram/histogram/**n**` => compute histogram of all ngrams of size `n`
+- `/texts/ngram/histogram/**n**/**threshhold**` => compute histogram of all ngrams of size `n` occurring more than **threshold** times
+- `/texts/ngram/histogram/**n**/**threshhold**/**CTS URN**` => compute histogram of all ngrams of size `n` occurring more than **threshold** times within **CTS URN**
+
+
+
+**CTS URN**/
+ 
+
