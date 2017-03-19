@@ -39,20 +39,17 @@ To implement:
 - `/textcatalog`**CTS URN** =>  (possibly empty) list of catalog entries matching **CTS URN**
 
 
-### Test searching services
+### String searching services
 
-- `/texts/find/**String**` => find all passages in repository with text content matching **String**
-- `/texts/find/**String**/**CTS URN**/`  => find all passages in **CTS URN** with text content matching **String**
-
-
-### Ngram manipulation
-
-- `/texts/ngram/histogram/**n**` => compute histogram of all ngrams of size `n`
-- `/texts/ngram/histogram/**n**/**threshhold**` => compute histogram of all ngrams of size `n` occurring more than **threshold** times
-- `/texts/ngram/histogram/**n**/**threshhold**/**CTS URN**` => compute histogram of all ngrams of size `n` occurring more than **threshold** times within **CTS URN**
+- `/texts/find/`**String**` => find all passages in repository with text content matching **String**
+- `/texts/find/`**String**/**CTS URN**/  => find all passages in **CTS URN** with text content matching **String**
 
 
 
-**CTS URN**/
- 
+### Ngram histograms
+
+- `/texts/ngram/histogram/`**n** => compute histogram of all ngrams of size `n`
+- `/texts/ngram/histogram/`**n**/**threshhold** => compute histogram of all ngrams of size `n` occurring more than **threshold** times
+- `/texts/ngram/histogram/`**n**/**threshhold**/**CTS URN** => compute histogram of all ngrams of size `n` occurring more than **threshold** times within **CTS URN**
+
 
