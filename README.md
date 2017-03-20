@@ -43,7 +43,7 @@ To implement:
 
 - `/texts/find/`**String**` => find all passages in repository with text content matching **String**
 - `/texts/find/`**String**/**CTS URN**/  => find all passages in **CTS URN** with text content matching **String**
-
+- `/texts/findAll/?t=`**token**`[t=`**token**`]...` => find all passages in repository with content matching each **token**
 
 
 ### Ngram histograms
