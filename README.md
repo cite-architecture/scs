@@ -36,21 +36,24 @@ To implement:
 ### Text catalog services
 
 - `/textcatalog` => lists catalog entries for all cataloged texts
-- `/textcatalog`**CTS URN** =>  (possibly empty) list of catalog entries matching **CTS URN**
+- `/textcatalog/`**CTS URN** =>  (possibly empty) list of catalog entries matching **CTS URN**
 
 
 ### String searching services
 
 - `/texts/find/`**String**` => find all passages in repository with text content matching **String**
 - `/texts/find/`**String**/**CTS URN**/  => find all passages in **CTS URN** with text content matching **String**
-- `/texts/findAll/?t=`**token**`[&t=`**token**`]...` => find all passages in repository with content matching each **token**
-- `/texts/findAll/`**CTS URN**`?t=`**token**`[&t=`**token**`]...` => find all passages in **CTS URN** with content matching each **token**
+- `/texts/findAll/?t=`**String**`[&t=`**String**`]...` => find all passages in repository with content matching each **token**
+- `/texts/findAll/`**CTS URN**`?t=`**token**`[&t=`**String**`]...` => find all passages in **CTS URN** with content matching each **String**
 
+
+- `/texts/token/`**String**` => find all passages in repository with white-space delimited token matching **String**
+- `/texts/token/`**String**/**CTS URN**/  => find all passages in **CTS URN** with white-space delimited token matching **String**
+- `/texts/allTokens/?t=`**tokens**`[&t=`**tokens**`]...` => find all passages in repository with content matching each **token**
+- `/texts/allTokens/`**CTS URN**`?t=`**token**`[&t=`**String**`]...` => find all passages in **CTS URN** with content matching each **token**
 
 ### Ngram histograms
 
 - `/texts/ngram/histogram/`**n** => compute histogram of all ngrams of size `n`
 - `/texts/ngram/histogram/`**n**/**threshhold** => compute histogram of all ngrams of size `n` occurring more than **threshold** times
 - `/texts/ngram/histogram/`**n**/**threshhold**/**CTS URN** => compute histogram of all ngrams of size `n` occurring more than **threshold** times within **CTS URN**
-
-
