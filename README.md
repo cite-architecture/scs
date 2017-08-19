@@ -2,7 +2,7 @@
 
 CITE service suite based on [finch](https://github.com/finagle/finch), loading data from files in the local file system.
 
-## Version: 0.1.0
+## Version: 0.2.0
 
 Status:  **experimental**.  No binary releases yet.
 
@@ -57,3 +57,8 @@ To implement:
 - `/texts/ngram/histogram/`**n** => compute histogram of all ngrams of size `n`
 - `/texts/ngram/histogram/`**n**/**threshhold** => compute histogram of all ngrams of size `n` occurring more than **threshold** times
 - `/texts/ngram/histogram/`**n**/**threshhold**/**CTS URN** => compute histogram of all ngrams of size `n` occurring more than **threshold** times within **CTS URN**
+
+## Versions
+
+- **0.1.0** Initial working example.
+- **0.2.0** Updated to Scala 2.12.3; updated CITE libraries to latest versions as of 08/19/2017.

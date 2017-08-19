@@ -1,11 +1,11 @@
 
 organization := "edu.holycross.shot"
 name := "scs"
-version := "0.1.0"
+version := "0.2.0"
 
 
-scalaVersion := "2.11.6"
-lazy val finchVersion = "0.12.0"
+scalaVersion := "2.12.3"
+lazy val finchVersion = "0.16.0-M1"
 
 
 
@@ -14,17 +14,21 @@ resolvers  :=  Seq(
   "uh-nexus" at "http://beta.hpcc.uh.edu/nexus/content/groups/public"
 )
 
+resolvers += Resolver.jcenterRepo
+resolvers += Resolver.bintrayRepo("neelsmith", "maven")
+
 libraryDependencies := Seq(
   "com.github.finagle" %% "finch-core" % finchVersion,
   "com.github.finagle" %% "finch-circe" % finchVersion,
-  "com.google.code.findbugs" % "jsr305" % "3.0.1",
-
-  "edu.holycross.shot" %% "cite" % "3.1.0",
-  "edu.holycross.shot" %% "ohco2" % "2.1.0"
+  "com.google.code.findbugs" % "jsr305" % "2.0.1",
+  "edu.holycross.shot.cite" %% "xcite" % "2.7.1",
+  "edu.holycross.shot" %% "cex" % "6.1.0",
+  "edu.holycross.shot" %% "ohco2" % "10.1.2",
+  "edu.holycross.shot" %% "scm" % "5.1.3"
 )
 
 
-val circeVersion = "0.7.0"
+val circeVersion = "0.8.0"
 libraryDependencies ++= Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",
