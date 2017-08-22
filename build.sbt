@@ -19,6 +19,7 @@ resolvers += Resolver.bintrayRepo("neelsmith", "maven")
 
 libraryDependencies := Seq(
   "com.github.finagle" %% "finch-core" % finchVersion,
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
   "com.github.finagle" %% "finch-circe" % finchVersion,
   "com.google.code.findbugs" % "jsr305" % "2.0.1",
   "edu.holycross.shot.cite" %% "xcite" % "2.7.1",

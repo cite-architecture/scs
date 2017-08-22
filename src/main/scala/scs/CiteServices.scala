@@ -53,6 +53,18 @@ object CiteServices extends App {
     }
 
 
+// Info
+  val info: Endpoint[String] = get("info" :: string :: string ) { (s1:String, s2:String) =>  {
+      Ok(s"Welcome to CITE services: ${s1} / ${s2}")
+    }
+  }
+
+
+// Version
+  val version: Endpoint[String] = get("version" ) { 
+      Ok("0.0.1")
+  }
+
   // CitableNodes in corpus
   val works: Endpoint[Vector[CtsUrn]] = get("texts" ) {
     Ok(corpus.citedWorks)
@@ -88,7 +100,7 @@ object CiteServices extends App {
   }
 
 
-  val svc : Service[Request, Response] = (text :+: works :+: firstNode :+: reff :+: ohco2catalog :+: ohco2work).handle({
+  val svc : Service[Request, Response] = ( info :+: version :+: text :+: works :+: firstNode :+: reff :+: ohco2catalog :+: ohco2work).handle({
       case se: ScsException => NotFound(se)
       case ce: CiteException => NotFound(ce)
 
